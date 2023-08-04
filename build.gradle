@@ -1,5 +1,6 @@
 plugins {
-    id 'com.gradle.plugin-publish' version '1.2.0'
+    id 'com.gradle.plugin-publish' version "${gradlepublishPluginVersion}"
+    id 'io.freefair.lombok' version "${lombokPluginVersion}"
 }
 
 group = 'io.github.projectleopold'
@@ -21,4 +22,9 @@ repositories {
 
 javadoc {
     options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+dependencies {
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${jacksonVersion}"
 }
