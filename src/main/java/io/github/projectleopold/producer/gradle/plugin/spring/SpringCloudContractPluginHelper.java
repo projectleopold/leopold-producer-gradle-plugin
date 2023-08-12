@@ -16,8 +16,28 @@
 
 package io.github.projectleopold.producer.gradle.plugin.spring;
 
+import org.gradle.api.Project;
+import org.gradle.api.Task;
+import org.gradle.api.tasks.TaskContainer;
+import org.gradle.api.tasks.TaskProvider;
+
 public class SpringCloudContractPluginHelper {
 
     public static final String PLUGIN_ID = "org.springframework.cloud.contract";
+
+    private static TaskProvider<Task> getTask(Project project, String taskName) {
+        TaskContainer tasks = project.getTasks();
+        TaskProvider<Task> task = tasks.named(taskName);
+        if (task.isPresent()) return task;
+        throw new IllegalStateException("No task '" + taskName + "'");
+    }
+
+    public static TaskProvider<Task> contractTest(Project project) {
+        return getTask(project, "contractTest");
+    }
+
+    public static TaskProvider<Task> generateClientStubs(Project project) {
+        return getTask(project, "generateClientStubs");
+    }
 
 }
