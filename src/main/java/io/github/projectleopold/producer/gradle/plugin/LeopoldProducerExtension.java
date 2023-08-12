@@ -16,14 +16,21 @@
 
 package io.github.projectleopold.producer.gradle.plugin;
 
+import io.github.projectleopold.producer.gradle.plugin.task.InformLeopoldByProducerTask;
 import org.gradle.api.Project;
+import org.gradle.api.logging.Logger;
+import org.gradle.api.logging.Logging;
 
 public class LeopoldProducerExtension {
 
     public static final String EXTENSION_NAME = "leopoldProducer";
 
+    private static final Logger LOGGER = Logging.getLogger(InformLeopoldByProducerTask.class);
+
     public static LeopoldProducerExtension create(Project project) {
-        return project.getExtensions().create(EXTENSION_NAME, LeopoldProducerExtension.class);
+        LeopoldProducerExtension extension = project.getExtensions().create(EXTENSION_NAME, LeopoldProducerExtension.class);
+        LOGGER.debug("Created extension: {}", EXTENSION_NAME);
+        return extension;
     }
 
 }

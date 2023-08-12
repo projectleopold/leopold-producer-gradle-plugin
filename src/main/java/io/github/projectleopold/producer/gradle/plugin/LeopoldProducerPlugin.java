@@ -17,6 +17,7 @@
 package io.github.projectleopold.producer.gradle.plugin;
 
 import io.github.projectleopold.producer.gradle.plugin.spring.SpringCloudContractPluginHelper;
+import io.github.projectleopold.producer.gradle.plugin.task.InformLeopoldByProducerTask;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;
@@ -31,8 +32,10 @@ public class LeopoldProducerPlugin implements Plugin<Project> {
     @Override
     public void apply(Project project) {
         LeopoldProducerExtension.create(project);
+        InformLeopoldByProducerTask.register(project);
         project.getPlugins().withId(SpringCloudContractPluginHelper.PLUGIN_ID, this::withSpringCloudContractPlugin);
         project.afterEvaluate(this::afterEvaluate);
+        LOGGER.debug("Applied plugin: {}", PLUGIN_ID);
     }
 
     private void withSpringCloudContractPlugin(Plugin<?> plugin) {
